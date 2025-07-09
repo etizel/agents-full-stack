@@ -5,6 +5,7 @@ import {
   type ZodTypeProvider
 } from 'fastify-type-provider-zod'
 import { fastifyCors } from '@fastify/cors';
+import { env } from 'process';
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -15,7 +16,11 @@ app.register(fastifyCors, {
 app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
 
-app.listen({ port: process.env.PORT? Number(process.env.PORT) : 3000 }).then(() => {
-  console.log(`Port: ${process.env.PORT}`);
-  console.log('Server is running on http://localhost:3000 !!!');
+app.get('/health', () => {
+  return 'OK'
+})
+
+app.listen({ port: env.PORT}).then(() => {
+  
+  console.log('HTTP Server is running !!');
 })
