@@ -2,7 +2,7 @@ import { fastify } from 'fastify';
 import {  
   serializerCompiler,
   validatorCompiler,
-  ZodTypeProvider
+  type ZodTypeProvider
 } from 'fastify-type-provider-zod'
 import { fastifyCors } from '@fastify/cors';
 
@@ -15,4 +15,6 @@ app.register(fastifyCors, {
 app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
 
-app.listen({ port: 3000 })
+app.listen({ port: 3000 }).then(() => {
+  console.log('Server is running on http://localhost:3000 !!!');
+})
