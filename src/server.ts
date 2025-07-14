@@ -5,7 +5,7 @@ import {
   type ZodTypeProvider
 } from 'fastify-type-provider-zod'
 import { fastifyCors } from '@fastify/cors';
-import { env } from 'process';
+import { env } from './env.ts';
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -21,6 +21,5 @@ app.get('/health', () => {
 })
 
 app.listen({ port: env.PORT}).then(() => {
-  
-  console.log('HTTP Server is running !!');
+  console.log('HTTP Server is running !!!');
 })
