@@ -1,5 +1,5 @@
 import { fastify } from 'fastify';
-import { sql } from './db/connection.ts'; // Ensure the database connection is established
+import { sql } from './db/connection.ts'; 
 import {  
   serializerCompiler,
   validatorCompiler,
@@ -21,6 +21,4 @@ app.get('/health', () => {
   return 'OK'
 })
 
-app.listen({ port: env.PORT}).then(() => {
-  console.log('HTTP Server is running !!!');
-})
+app.listen({ port: env.PORT})

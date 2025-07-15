@@ -2,9 +2,9 @@ services:
   agents-pg:
     image: pgvector/pgvector:pg17
     environment:
-      - POSTGRES_USER= docker
-      - POSTGRES_PASSWORD= docker
-      - POSTGRES_DB= agents
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=SuperSakur@1995
+      - POSTGRES_DB=agents
     ports:
       - "5432:5432"
     volumes:
