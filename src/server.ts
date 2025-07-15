@@ -1,4 +1,5 @@
 import { fastify } from 'fastify';
+import { sql } from './db/connection.ts'; // Ensure the database connection is established
 import {  
   serializerCompiler,
   validatorCompiler,
