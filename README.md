@@ -1,139 +1,203 @@
-🏗️ Arquétipo Constructor - Uma aplicação full-stack robusta e escalável construída do zero com as melhores práticas de desenvolvimento moderno.
-
-📋 Sobre o Projeto
-O Let Me Ask é uma aplicação full-stack completa que demonstra a implementação de uma arquitetura moderna e escalável. Este projeto implementa funcionalidades avançadas com foco na qualidade do código, performance e experiência do usuário.
-
+🏗️ API de Gerenciamento de Salas (Rooms)
+Uma API robusta e escalável construída do zero com as melhores práticas de desenvolvimento moderno para gerenciamento de salas virtuais.
 🎯 Objetivos
+Esta API foi desenvolvida para fornecer uma base sólida e escalável que demonstra todas as etapas para a construção e integração de servidor com backend e banco de dados, incluindo:
 
-Construir uma base sólida e escalável para aplicações full-stack
-Implementar as melhores práticas de desenvolvimento moderno
-Demonstrar integração eficiente entre front-end e back-end
-Garantir qualidade e segurança do código
-Preparar a aplicação para crescimento e novas funcionalidades
+CRUD de Salas: Criar, listar, atualizar e excluir salas virtuais
+Autenticação: Proteção de salas com senha
+Gerenciamento de Conexões: Controle de usuários em salas
+Base para Aplicações: Chat, reuniões, jogos multiplayer e muito mais
 
 🛠️ Stack Tecnológica
-🔧 Back-end
+Backend
 
 Node.js - Runtime JavaScript
 Fastify - Framework web rápido e eficiente
 TypeScript - Superset JavaScript com tipagem estática
 Zod - Validação de esquemas e tipos
-PostgreSQL - Banco de dados relacional
+Drizzle ORM - ORM moderno com tipagem completa
+
+Banco de Dados
+
+PostgreSQL - Banco de dados relacional robusto
+
+DevOps & Ferramentas
+
 Docker - Containerização e orquestração
 Biome - Linter e formatter para qualidade do código
 
-🎨 Front-end
-
-React - Biblioteca para interfaces de usuário
-Vite - Build tool e dev server ultrarrápido
-TypeScript - Tipagem estática
-Tailwind CSS - Framework CSS utilitário
-shadcn/ui - Componentes UI reutilizáveis
-React Router DOM - Roteamento para React
-React Query - Gerenciamento de estado assíncrono
-
-🔐 Autenticação & Segurança
+Segurança
 
 Sistema de autenticação robusto
 Validação de dados com Zod
 Variáveis de ambiente seguras
 Middleware de segurança
 
-🎯 Core Features
-
-Interface responsiva e moderna
-Navegação fluida com React Router
-Gerenciamento de estado eficiente
-Consumo otimizado de API
-
-📊 Performance & Qualidade
-
-Build otimizado com Vite
-Lazy loading de componentes
-Cache inteligente com React Query
-Código limpo com Biome
-
-🚀 Primeiros Passos
 📋 Pré-requisitos
 Certifique-se de ter instalado:
 
 Node.js (versão 18 ou superior)
 Docker e Docker Compose
 Git
-npm ou yarn
 
-🔧 Instalação
-bash# Clone o repositório
-git clone https://github.com/seu-usuario/let-me-ask.git
+🚀 Instalação e Configuração
+1. Clone o repositório
+bashgit clone <url-do-repositorio>
+cd rooms-api
+2. Instale as dependências
+bashnpm install
+3. Configure as variáveis de ambiente
+bashcp .env.example .env
+# Edite o arquivo .env com suas configurações
+4. Inicie o banco de dados
+bashdocker-compose up -d
+5. Execute as migrações
+bashnpm run migrate
+6. Inicie a API
+bash npm run dev
 
-# Navegue até o diretório
+🏗️ Arquitetura
+Pontos Fortes da Arquitetura
+🔒 Segurança de Tipos Extrema
 
-cd let-me-ask
+Zod: Validação runtime de entradas
+Drizzle: Tipagem do banco → TypeScript
+TypeScript: Tipagem estática em toda aplicação
 
-# Instale as dependências do backend
+typescript// Exemplo: Segurança em cascata
+const RoomSchema = z.object({ 
+  name: z.string().max(50),
+  password: z.string().optional()
+});
+type Room = z.infer<typeof RoomSchema>;
+⚡ Performance Otimizada
 
-cd backend
-npm install
+Fastify: Framework low-overhead
+Drizzle: Gera SQL otimizado
+PostgreSQL: Queries eficientes
 
-# Instale as dependências do frontend
+😎 Developer Experience Superior
 
-cd ../frontend
-npm install
-🐳 Configuração do Banco de Dados
-bash# No diretório backend
-docker-compose up -d
+Hot reload durante desenvolvimento
+Migrations versionadas
+Autocomplete completo de esquemas
+Validação de ambiente na inicialização
 
-# Execute as migrações
+typescript// Autocomplete mágico!
+db.select().from(rooms).where(eq(rooms.id, roomId))
+🐳 Ambiente Confiável
 
-npm run migrate
-🏃‍♂️ Executando a Aplicação
-bash# Terminal 1 - Backend
-cd backend
-npm run dev
+Docker: PostgreSQL pré-configurado
+Env validation: Erros explícitos na inicialização
+Ambiente idêntico em desenvolvimento e produção
 
-# Terminal 2 - Frontend
+bash# Se faltar DATABASE_URL:
+Error: [ZodError]: DATABASE_URL is required
+📈 Pronto para Escala
 
-cd frontend
-npm run dev
-A aplicação estará disponível em:
+Rotas desacopladas
+Banco containerizado
+Schemas modulares
+Arquitetura limpa
 
-Frontend: http://localhost:5173
-Backend: http://localhost:3333
+📁 Estrutura do Projeto
+src/
+├── db/
+│   ├── schema/
+│   │   └── rooms.ts          # Schema das salas
+│   ├── migrate.ts            # Execução de migrações
+│   └── seed.ts               # Dados iniciais
+├── routes/
+│   ├── rooms/
+│   │   ├── create-room.ts    # Criar sala
+│   │   ├── get-rooms.ts      # Listar salas
+│   │   ├── get-room.ts       # Buscar sala específica
+│   │   ├── update-room.ts    # Atualizar sala
+│   │   └── delete-room.ts    # Excluir sala
+│   └── get-root.ts           # Rota inicial
+├── lib/
+│   └── env.ts                # Validação de variáveis de ambiente
+├── app.ts                    # Configuração do Fastify
+└── server.ts                 # Inicialização do servidor
+Componentes Chave
+ArquivoFunçãoResponsabilidaderooms.tsDefine estrutura da salaSchema do banco de dadosget-root.tsRota inicialEndpoint de health checkseed.tsDados iniciaisPopulação inicial do bancodrizzle.config.tsConfiguração ORMConexão e migraçõesenv.tsValidação variáveisValidação de ambiente
+🔌 Endpoints da API
+Salas (Rooms)
+MétodoEndpointDescriçãoGET/Health check da APIGET/roomsLista todas as salasGET/rooms/:idBusca uma sala específicaPOST/roomsCria uma nova salaPUT/rooms/:idAtualiza uma salaDELETE/rooms/:idExclui uma sala
+Exemplo de Uso
+bash# Criar uma sala
+curl -X POST http://localhost:3000/rooms \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Sala de Reunião", "password": "123456"}'
 
-🔧 Scripts Disponíveis
-Backend
-bashnpm run dev # Inicia o servidor de desenvolvimento
-npm run build # Build para produção
-npm run start # Inicia o servidor em produção
-npm run lint # Executa o linter
-npm run format # Formata o código
-Frontend
-bashnpm run dev # Inicia o servidor de desenvolvimento
-npm run build # Build para produção
-npm run preview # Preview do build
-npm run lint # Executa o linter
-🌟 Próximos Passos
-Este projeto está em constante evolução. Funcionalidades planejadas:
+# Listar salas
+curl http://localhost:3000/rooms
 
-Sistema de rooms em tempo real
-Notificações push
-Sistema de moderação
-Analytics e métricas
-Testes automatizados
-Deploy automatizado
-Documentação da API
+# Buscar sala específica
+curl http://localhost:3000/rooms/1
+🧪 Scripts Disponíveis
+bash# Desenvolvimento
+npm run dev          # Inicia em modo desenvolvimento
+npm run build        # Build para produção
+npm run start        # Inicia em produção
+
+# Banco de dados
+npm run migrate      # Executa migrações
+npm run seed         # Popula dados iniciais
+npm run studio       # Abre Drizzle Studio
+
+# Qualidade de código
+npm run lint         # Executa linter
+npm run format       # Formata código
+npm run check        # Verifica tipos TypeScript
+📊 Vantagens Comparativas
+FeatureBenefícioImpactoValidação ZodPrevine injection attacks+SegurançaTipagem DrizzleElimina erros de SQL+ConfiabilidadeMigrationsEvolução controlada do BD+ManutenibilidadeDocker PostgreSQLAmbiente idêntico prod/dev+ConsistênciaTypeScriptDetecção precoce de erros+Qualidade
+🎯 Casos de Uso Ideais
+
+Plataformas de reuniões online
+Salas de jogos em tempo real
+Sistemas de suporte ao cliente
+Educação virtual (salas de aula)
+Colaboração em equipe
+Eventos virtuais
+
+🛣️ Próximos Passos Recomendados
+
+Autenticação JWT: Implementar sistema de autenticação completo
+WebSockets: Adicionar comunicação em tempo real
+Sistema de Permissões: Controle de acesso granular
+Testes: Implementar testes unitários e de integração com Vitest
+Rate Limiting: Proteção contra spam e ataques
+Logs Estruturados: Sistema de logging robusto
+Monitoring: Métricas e observabilidade
+Cache: Redis para performance
 
 🤝 Contribuindo
-Contribuições são sempre bem-vindas! Veja como você pode ajudar:
+Contribuições são sempre bem-vindas! Para contribuir:
 
-Fork o projeto
-Crie uma branch para sua feature (git checkout -b feature/AmazingFeature)
-Commit suas mudanças (git commit -m 'Add some AmazingFeature')
-Push para a branch (git push origin feature/AmazingFeature)
+Faça um fork do projeto
+Crie uma branch para sua feature (git checkout -b feature/nova-feature)
+Commit suas mudanças (git commit -m 'Adiciona nova feature')
+Push para a branch (git push origin feature/nova-feature)
 Abra um Pull Request
 
 📝 Licença
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+🔧 Solução de Problemas
+Problemas Comuns
+Erro de conexão com PostgreSQL
+bash# Verifique se o container está rodando
+docker ps
+
+# Reinicie o container se necessário
+docker-compose restart postgres
+Erro de migração
+bash# Limpe o banco e execute novamente
+npm run migrate:reset
+npm run migrate
+Porta já em uso
+bash# Altere a porta no arquivo .env
+PORT=3001
 
 ⭐ Se este projeto te ajudou, deixe uma estrela! ⭐
-Construído com arquétipo Constructor - Focado em bases sólidas e escalabilidade.
+Construído com foco em bases sólidas e escalabilidade 🚀
